@@ -14,6 +14,17 @@ public class Note {
     private String title=null;
     private String content=null;
 
+    public Note(long id, String title, String content) {
+        this.id=id;
+        this.title=title;
+        this.content=content;
+    }
+
+    public Note() {
+    }
+    
+    
+    
     public long getId() {
         return id;
     }

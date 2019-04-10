@@ -14,6 +14,11 @@ import java.util.List;
  */
 public class NoteRepository {
     private static List<Note> notes=new ArrayList<>();
+    static{
+        notes.add(new Note(0, "title1", "content1"));
+        notes.add(new Note(1, "title2", "content2"));
+        notes.add(new Note(2, "title3", "content3"));
+    }
     public static List<Note> getNotes(){
         return new ArrayList<>(notes);
     }

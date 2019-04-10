@@ -17,49 +17,57 @@
         <script>
             var v=null;
             $(document).ready(function(){
-                $.ajax("webapi/items", {
-                    success: function(items){
+                $.ajax("webapi/notes", {
+                    success: function(notes){
                         v=new Vue({
-                            el: "#items",
+                            el: "#notes",
                             data: {
-                                "items": items
+                                "notes": notes
                             },
                             methods:{
-                                edit: function(item){
-                                    window.location.href="editCart.jsp?item="+item.product;
+                                edit: function(note){
+                                    window.location.href="editNote.jsp?id="+note.id;
                                 },
-                                remove: function(item){
-                                    window.location.href="deleteCart.jsp?item="+item.product;
+                                remove: function(note){
+                                    $.ajax("webapi/note/"+note.id, {
+                                        type: "DELETE",
+                                        success: function(){
+                                            window.location.href="index.jsp";
+                                        },
+                                        error: function(){
+                                            alert("failed");
+                                        }
+                                    });
                                 }
                             }
                         });
                     }
                 });
             });
-            function addCart(){
-                window.location.href="addCart.jsp";
+            function addNote(){
+                window.location.href="addNote.jsp";
             }
         </script>
     </head>
     <body>
-        <button onclick="addCart();">NEW</button>
-        <div id="items">
+        <button onclick="addNote();">NEW</button>
+        <div id="notes">
             <table border="1" style="width: 90%">
                 <thead>
                     <tr>
-                        <th>Product Name</th>
-                        <th>Unit Price</th>
-                        <th>Amount</th>
+                        <th>Id</th>
+                        <th>Title</th>
+                        <th>Content</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="item in items">
-                        <td>{{item.product}}</td>
-                        <td>{{item.unitPrice}}</td>
-                        <td>{{item.amount}}</td>
-                        <td><button v-on:click="edit(item);">EDIT</button>
-                            <button v-on:click="remove(item);">DELETE</button></td>
+                    <tr v-for="note in notes">
+                        <td>{{note.id}}</td>
+                        <td>{{note.title}}</td>
+                        <td>{{note.content}}</td>
+                        <td><button v-on:click="edit(note);">EDIT</button>
+                            <button v-on:click="remove(note);">DELETE</button></td>
                     </tr>
                 </tbody>
             </table>
