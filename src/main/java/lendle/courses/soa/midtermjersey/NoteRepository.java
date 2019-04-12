@@ -24,11 +24,8 @@ public class NoteRepository {
     }
     
     public static Note getNote(long id){
-        for(Note note : notes){
-            if(note.getId()==id){
-                return note;
-            }
-        }
+        //6. (10%) return the corresponding note with the given id
+        
         return null;
     }
     
